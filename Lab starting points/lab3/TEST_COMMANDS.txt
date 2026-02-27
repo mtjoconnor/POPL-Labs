@@ -1,0 +1,29 @@
+# Lab 3 test commands (run from this directory)
+
+# 1) Build both models
+# Expected: build succeeds, producing ./fungol and ./fungol-cont
+ghc --make Fungol.hs -main-is Fungol -o fungol
+ghc --make FungolCont.hs -main-is FungolCont -o fungol-cont
+
+# 2) Basic loop/exit program from spec
+# Expected key output from both commands: 7
+printf 'loop0();;\n' | ./fungol ex0.fun
+printf 'loop0();;\n' | ./fungol-cont ex0.fun
+
+# 3) Section 3.3 experiments file
+# Expected for Maybe model:
+# --> []
+# --> []
+# --> 3
+./fungol experiments.fun
+
+# Expected for continuation model:
+# ***exit in main program***
+# --> []
+# --> 0
+./fungol-cont experiments.fun
+
+# 4) Expected-failure style check (uncaught exit)
+# Expected for both commands: ***exit in main program***
+printf 'exit;;\n' | ./fungol
+printf 'exit;;\n' | ./fungol-cont

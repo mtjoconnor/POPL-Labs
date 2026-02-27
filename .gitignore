@@ -1,0 +1,10 @@
+.DS_Store
+
+# GHC build artifacts
+*.o
+*.hi
+
+# Local binaries
+fun
+fungol
+fungol-cont

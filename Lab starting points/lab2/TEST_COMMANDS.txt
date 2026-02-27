@@ -1,0 +1,23 @@
+# Lab 2 test commands (run from this directory)
+
+# 1) Build
+# Expected: build succeeds and creates ./fun
+ghc --make FunLab2.hs -main-is FunLab2 -o fun
+
+# 2) Provided Jensen program
+# Expected key output: 285
+printf 'go();;\n' | ./fun jensen.fun
+
+# 3) Lab experiments (positive)
+# Expected key outputs in order:
+# go() => 285
+# x := 0 => 0
+# twice((x := !x + 1; !x)) => 3
+# !x => 2
+# ignore(1 div 0) => 42
+# go_thunk() => 285
+printf 'go();;\nval x = new();;\nx := 0;;\ntwice((x := !x + 1; !x));;\n!x;;\nignore(1 div 0);;\ngo_thunk();;\n' | ./fun experiments.fun jensen.fun
+
+# 4) Expected-failure test
+# Expected: "Error: Dividing by zero"
+printf 'twice(1 div 0);;\n' | ./fun experiments.fun
